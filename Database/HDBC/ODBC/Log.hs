@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+
 module Database.HDBC.ODBC.Log
   ( hdbcLog
   , hdbcTrace
@@ -7,9 +8,9 @@ module Database.HDBC.ODBC.Log
 import System.IO
 
 hdbcLog :: String -> IO ()
-hdbcLog _ = return ()
--- hdbcLog m = hPutStrLn stderr ("\n" ++ m)
+hdbcLog msg = print msg
 
+-- hdbcLog m = hPutStrLn stderr ("\n" ++ m)
 hdbcTrace :: String -> IO ()
-hdbcTrace _ = return ()
+hdbcTrace msg = print msg
 -- hdbcTrace m = hPutStrLn stderr ("\n" ++ m)
