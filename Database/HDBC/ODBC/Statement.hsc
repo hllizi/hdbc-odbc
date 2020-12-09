@@ -350,6 +350,7 @@ bindSqlValue sqlValue = case sqlValue of
 
 ffetchrow :: SState -> IO (Maybe [SqlValue])
 ffetchrow sstate = do
+  hdbcTrace $ squery sstate
   result <- withMaybeStmt (sstmt sstate) $ \maybeStmt ->
     case maybeStmt of
       Nothing -> do
