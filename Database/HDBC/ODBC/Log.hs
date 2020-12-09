@@ -8,9 +8,9 @@ module Database.HDBC.ODBC.Log
 import System.IO
 
 hdbcLog :: String -> IO ()
-hdbcLog msg = print msg
+hdbcLog = print
 
 -- hdbcLog m = hPutStrLn stderr ("\n" ++ m)
 hdbcTrace :: String -> IO ()
-hdbcTrace msg = print msg
+hdbcTrace = print
 -- hdbcTrace m = hPutStrLn stderr ("\n" ++ m)
