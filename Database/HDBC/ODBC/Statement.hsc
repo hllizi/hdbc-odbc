@@ -9,7 +9,7 @@ module Database.HDBC.ODBC.Statement (
    fgettables,
    fdescribetable
  ) where
-
+import Debug.Trace
 import Database.HDBC.Types
 import Database.HDBC
 import Database.HDBC.DriverUtils
