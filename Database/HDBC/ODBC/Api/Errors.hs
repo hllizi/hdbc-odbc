@@ -11,13 +11,16 @@ import Database.HDBC (SqlError(..), throwSqlError)
 import Database.HDBC.ODBC.Api.Imports
 import Database.HDBC.ODBC.Api.Types
 import Database.HDBC.ODBC.Log
+import Debug.Trace
 import Foreign.C
 import Foreign.Marshal.Alloc
 import Foreign.Ptr
 import Foreign.Storable
 
 checkError :: String -> AnyHandle -> SQLRETURN -> IO ()
-checkError msg o res = unless (sqlSucceeded res) $ raiseError msg res o
+checkError msg o res =
+  unless (sqlSucceeded res) $
+  trace "Raise Error" raiseError (trace "Message" msg) res o
 
 raiseError :: String -> SQLRETURN -> AnyHandle -> IO a
 raiseError msg code cconn = do
@@ -32,9 +35,9 @@ raiseError msg code cconn = do
   where
     (ht, hp) =
       case cconn of
-        EnvHandle c -> (sQL_HANDLE_ENV, castPtr c)
-        DbcHandle c -> (sQL_HANDLE_DBC, castPtr c)
-        StmtHandle c -> (sQL_HANDLE_STMT, castPtr c)
+        EnvHandle c -> trace "Environment" $ (sQL_HANDLE_ENV, castPtr c)
+        DbcHandle c -> trace "Dbc" $ (sQL_HANDLE_DBC, castPtr c)
+        StmtHandle c -> trace "Statement" $ (sQL_HANDLE_STMT, castPtr c)
 
 foreign import ccall safe "sqlSucceeded" c_sqlSucceeded :: SQLRETURN -> CInt
 
