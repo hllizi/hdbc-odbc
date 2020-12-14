@@ -360,7 +360,7 @@ ffetchrow sstate = do
         hdbcTrace "ffetchrow"
         bindCols <- getBindCols sstate hStmt
         hdbcTrace "ffetchrow: fetching"
-        rc <- sqlFetch hStmt
+        rc <- trace "Fetchner esql" sqlFetch hStmt
         if rc == #{const SQL_NO_DATA}
           then do
             hdbcTrace "ffetchrow: no more rows"
