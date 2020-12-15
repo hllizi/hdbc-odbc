@@ -367,7 +367,7 @@ ffetchrow sstate = do
             return Nothing
           else do
             hdbcTrace "ffetchrow: fetching data"
-            trace "Mark!" ++ (squery sstate) ++ ": " $ checkError "sqlFetch" (StmtHandle hStmt) rc
+            trace ("Mark!" ++ (squery sstate) ++ ": ") $ checkError "sqlFetch" (StmtHandle hStmt) rc
             sqlValues <- if rc == #{const SQL_SUCCESS} || rc == #{const SQL_SUCCESS_WITH_INFO}
               then mapM (bindColToSqlValue hStmt) bindCols
               else raiseError "sqlGetData" rc (StmtHandle hStmt)
